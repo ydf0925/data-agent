@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="uv (data-agent) (2)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="uv (data-agent) (2)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="uv (data-agent)" project-jdk-type="Python SDK" />
 </project>

@@ -3,45 +3,8 @@
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.55">
     <root id="1">
       <DefaultAuthPlugin>caching_sha2_password</DefaultAuthPlugin>
-      <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
       <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <Grants>dw|schema||atguigu||ALTER|G
-dw|schema||atguigu||ALTER ROUTINE|G
-dw|schema||atguigu||CREATE|G
-dw|schema||atguigu||CREATE ROUTINE|G
-dw|schema||atguigu||CREATE TEMPORARY TABLES|G
-dw|schema||atguigu||CREATE VIEW|G
-dw|schema||atguigu||DELETE|G
-dw|schema||atguigu||DROP|G
-dw|schema||atguigu||EVENT|G
-dw|schema||atguigu||EXECUTE|G
-dw|schema||atguigu||INDEX|G
-dw|schema||atguigu||INSERT|G
-dw|schema||atguigu||LOCK TABLES|G
-dw|schema||atguigu||REFERENCES|G
-dw|schema||atguigu||SELECT|G
-dw|schema||atguigu||SHOW VIEW|G
-dw|schema||atguigu||TRIGGER|G
-dw|schema||atguigu||UPDATE|G
-meta|schema||atguigu||ALTER|G
-meta|schema||atguigu||ALTER ROUTINE|G
-meta|schema||atguigu||CREATE|G
-meta|schema||atguigu||CREATE ROUTINE|G
-meta|schema||atguigu||CREATE TEMPORARY TABLES|G
-meta|schema||atguigu||CREATE VIEW|G
-meta|schema||atguigu||DELETE|G
-meta|schema||atguigu||DROP|G
-meta|schema||atguigu||EVENT|G
-meta|schema||atguigu||EXECUTE|G
-meta|schema||atguigu||INDEX|G
-meta|schema||atguigu||INSERT|G
-meta|schema||atguigu||LOCK TABLES|G
-meta|schema||atguigu||REFERENCES|G
-meta|schema||atguigu||SELECT|G
-meta|schema||atguigu||SHOW VIEW|G
-meta|schema||atguigu||TRIGGER|G
-meta|schema||atguigu||UPDATE|G</Grants>
       <ServerVersion>8.0.46</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">

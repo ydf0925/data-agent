@@ -1,9 +1,10 @@
 <DataSourcesHistory>
-  <DataSourceFromHistory isRemovedFromProject="false">
-    <data-source source="LOCAL" name="localhost" uuid="a558ba6e-d50c-4b8e-a57b-d801a14766f9">
+  <DataSourceFromHistory isRemovedFromProject="true">
+    <data-source source="LOCAL" name="localhost" uuid="6f6798c8-01ef-4562-a4e8-c4fdda8f6f32">
       <database-info product="MySQL" version="8.0.46" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-9.7.0 (Revision: 0aade1f13bcc98faf7dda5c02e782481eb291f62)" dbms="MYSQL" exact-version="8.0.46" exact-driver-version="9.7">
         <extra-name-characters>$</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
+        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <driver-ref>mysql.8</driver-ref>
