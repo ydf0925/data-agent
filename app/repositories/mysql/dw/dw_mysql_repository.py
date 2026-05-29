@@ -22,3 +22,21 @@ class DWMySQLRepository:
         result_now = [row[0] for row in result]
 
         return result_now
+
+    async def get_db_info(self):
+        sql = "select version()"
+        result = await self.session.execute(text(sql))
+        version = result.scalar()
+        dialect = self.session.bind.dialect.name
+
+        return {"dialect": dialect, "version": version}
+
+    async def validate_sql(self, sql: str):
+        sql = f"explain {sql}"
+        await self.session.execute(text(sql))
+
+    async def run(self, sql: str) -> list[dict]:
+        result = await self.session.execute(text(sql))
+        result = [dict(row) for row in result.mappings().fetchall()]
+
+        return result
