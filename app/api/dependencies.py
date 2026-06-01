@@ -37,7 +37,7 @@ async def get_column_qdrant_repository() -> ColumnQdrantRepository:
     return ColumnQdrantRepository(qdrant_client_manager.client)
 
 async def get_metric_qdrant_repository() -> MetricQdrantRepository:
-    return MetaMySQLRepository(qdrant_client_manager.client)
+    return MetricQdrantRepository(qdrant_client_manager.client)
 
 async def get_value_es_repository() -> ValueEsRepository:
     return ValueEsRepository(es_client_manager.client)
