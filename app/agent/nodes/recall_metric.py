@@ -11,34 +11,42 @@ from app.core.log import logger
 
 
 async def recall_metric(state: DataAgentState, runtime: Runtime[DataAgentContext]):
+    step = "召回指标信息"
     writer = runtime.stream_writer
-    writer("召回指标信息")
-    query = state["query"]
-    keywords = state["keywords"]
-    embedding_client = runtime.context["embedding_client"]
-    metric_qdrant_repository = runtime.context["metric_qdrant_repository"]
+    writer({"type": "progress", "step": step, "status": "running"})
 
-    # 借助LLM扩展关键词
-    prompt = PromptTemplate(template=load_prompt("extend_keywords_for_metric_recall"), input_variables=["query"])
-    output_parser = JsonOutputParser()
-    chain = prompt | llm | output_parser
+    try:
+        query = state["query"]
+        keywords = state["keywords"]
+        embedding_client = runtime.context["embedding_client"]
+        metric_qdrant_repository = runtime.context["metric_qdrant_repository"]
 
-    result = await chain.ainvoke({"query": query})
-    keywords = set(keywords + result)
+        # 借助LLM扩展关键词
+        prompt = PromptTemplate(template=load_prompt("extend_keywords_for_metric_recall"), input_variables=["query"])
+        output_parser = JsonOutputParser()
+        chain = prompt | llm | output_parser
 
-    # 根据关键词检索指标信息
-    metric_info_map: dict[str, MetricInfo] = {}
-    for keyword in keywords:
-        # 对keywords进行Embedding
-        embedding = await embedding_client.aembed_query(keyword)
-        current_metric_infos: list[MetricInfo] = await metric_qdrant_repository.search(embedding, score_threshold=0.6,
-                                                                                       limit=10)
-        for metric_info in current_metric_infos:
-            if metric_info.id not in metric_info_map:
-                metric_info_map[metric_info.id] = metric_info
+        result = await chain.ainvoke({"query": query})
+        keywords = set(keywords + result)
 
-    retrieved_metric_infos: list[MetricInfo] = list(metric_info_map.values())
+        # 根据关键词检索指标信息
+        metric_info_map: dict[str, MetricInfo] = {}
+        for keyword in keywords:
+            # 对keywords进行Embedding
+            embedding = await embedding_client.aembed_query(keyword)
+            current_metric_infos: list[MetricInfo] = await metric_qdrant_repository.search(embedding, score_threshold=0.6,
+                                                                                           limit=10)
+            for metric_info in current_metric_infos:
+                if metric_info.id not in metric_info_map:
+                    metric_info_map[metric_info.id] = metric_info
 
-    logger.info(f"检索到指标信息：{list(metric_info_map.keys())}")
+        retrieved_metric_infos: list[MetricInfo] = list(metric_info_map.values())
 
-    return {"retrieved_metric_infos": retrieved_metric_infos}
+        logger.info(f"检索到指标信息：{list(metric_info_map.keys())}")
+        writer({"type": "progress", "step": step, "status": "success"})
+
+        return {"retrieved_metric_infos": retrieved_metric_infos}
+    except Exception as e:
+        logger.error(f"召回指标信息失败:{e}")
+        writer({"type": "progress", "step": step, "status": "error"})
+        raise
